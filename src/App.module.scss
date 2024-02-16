@@ -1,0 +1,23 @@
+main {
+  height: 300vh; //Just to have the scrolling behavior
+
+  .mainBackgroundImage {
+    position: relative;
+    max-width: 100%;
+    height: 100vh;
+    background-image: url('assets/background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+  }
+
+  .mainBackgroundMask {
+    position: absolute;
+    transform: rotate(180deg);
+    bottom: -1px;
+    width: 100%;
+    height: 25%;
+    z-index: 2;
+  }
+}

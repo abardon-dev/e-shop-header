@@ -1,0 +1,146 @@
+@use 'src/styles/breakpoints.scss';
+
+$header-height: 3rem;
+$padding-h: 2rem;
+$padding-v: 1rem;
+
+$background-color: transparent;
+$alt-background-color: #fef3ec;
+
+$color: #fef3ec;
+$alt-color: #181725;
+
+header {
+  height: $header-height;
+  padding: $padding-v $padding-h;
+  width: calc(100% - 2 * $padding-h);
+  position: fixed;
+  top: 0;
+  background-color: $background-color;
+  transition:
+    /** Alternative color background transition */
+    background-color 0.4s ease-out,
+    /** Hiding header on scrolling up/down transition */ top cubic-bezier(0.4, 0, 0.2, 1) 0.5s;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  z-index: 100;
+  color: $color;
+
+  &.alternative {
+    background-color: $alt-background-color;
+    color: $alt-color;
+  }
+
+  &.hide {
+    top: - calc($header-height + 2 * $padding-v);
+  }
+
+  .appLogo {
+    height: 75%;
+    width: auto;
+  }
+
+  .items {
+    height: inherit;
+    flex-grow: 1;
+
+    ul {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 1rem;
+
+      .navItem {
+        height: 100%;
+        display: inline-block;
+        padding: 0rem 0.5rem;
+        position: relative;
+
+        .navItemLink {
+          height: 100%;
+          display: inline-flex;
+          align-items: center;
+          font-size: 1.125rem;
+          font-weight: 300;
+          color: currentColor;
+        }
+      }
+
+      .navItem::before {
+        content: '';
+        height: 100%;
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .navItem::after {
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+
+        content: '';
+        display: block;
+        height: 1px;
+        width: 0px;
+        background: currentColor;
+        transition: width 0.3s;
+      }
+
+      .navItem:hover::after {
+        width: 100%;
+      }
+    }
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: end;
+
+    .navMenuButton {
+      display: none;
+    }
+
+    button {
+      color: currentColor;
+
+      &:hover {
+        border-color: currentColor;
+      }
+
+      .icon {
+        stroke-width: 1px;
+        width: 1.25rem;
+        height: 1.25rem;
+      }
+    }
+  }
+}
+
+@include breakpoints.for-tablet-portrait-down {
+  header {
+    .appLogo {
+      height: 50%;
+    }
+
+    .items,
+    .socialMediaButton {
+      display: none;
+    }
+
+    .actions {
+      flex-grow: 1;
+
+      .navMenuButton {
+        display: block;
+      }
+    }
+  }
+}
